@@ -342,7 +342,9 @@ class ViewportUnicodeHighlighter extends Disposable {
 			totalResult.hasMore = totalResult.hasMore || result.hasMore;
 		}
 
-		if (totalResult.hasMore) {
+		if (!totalResult.hasMore) {
+			// Don't show decorations if there are too many.
+			// A banner will be shown instead.
 			for (const range of totalResult.ranges) {
 				decorations.push({ range, options: this._options.includeComments ? DECORATION : DECORATION_HIDE_IN_COMMENTS });
 			}
