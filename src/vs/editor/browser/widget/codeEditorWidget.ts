@@ -1493,7 +1493,7 @@ export class CodeEditorWidget extends Disposable implements editorBrowser.ICodeE
 	}
 
 	public setBanner(domNode: HTMLElement | null, height: number): void {
-		if (this._bannerDomNode) {
+		if (this._bannerDomNode && this._domElement.contains(this._bannerDomNode)) {
 			this._domElement.removeChild(this._bannerDomNode);
 		}
 
@@ -1717,9 +1717,9 @@ export class CodeEditorWidget extends Disposable implements editorBrowser.ICodeE
 		this._domElement.removeAttribute('data-mode-id');
 		if (removeDomNode && this._domElement.contains(removeDomNode)) {
 			this._domElement.removeChild(removeDomNode);
-			if (this._bannerDomNode) {
-				this._domElement.removeChild(this._bannerDomNode);
-			}
+		}
+		if (this._bannerDomNode && this._domElement.contains(this._bannerDomNode)) {
+			this._domElement.removeChild(this._bannerDomNode);
 		}
 
 		return model;

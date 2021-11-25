@@ -35,7 +35,15 @@ export class BannerController extends Disposable {
 	}
 
 	public show(item: IBannerItem) {
-		this.banner.show(item);
+		this.banner.show({
+			...item,
+			onClose: () => {
+				this.hide();
+				if (item.onClose) {
+					item.onClose();
+				}
+			}
+		});
 		this._editor.setBanner(this.banner.element, BANNER_ELEMENT_HEIGHT);
 	}
 }
@@ -130,7 +138,6 @@ class Banner extends Disposable {
 					if (typeof item.onClose === 'function') {
 						item.onClose();
 					}
-					this.clear();
 				}
 			)
 		), { icon: true, label: false });

@@ -41,7 +41,8 @@ export class UnicodeHighlighter extends Disposable implements IEditorContributio
 	private _highlighter: DocumentUnicodeHighlighter | ViewportUnicodeHighlighter | null = null;
 	private _options: InternalUnicodeHighlightOptions;
 
-	private readonly _bannerController: BannerController;// = this._register(new BannerController());
+	private readonly _bannerController: BannerController;
+	private _bannerClosed: boolean = false;
 
 	constructor(
 		private readonly _editor: ICodeEditor,
@@ -54,6 +55,7 @@ export class UnicodeHighlighter extends Disposable implements IEditorContributio
 		this._bannerController = this._register(instantiationService.createInstance(BannerController, _editor));
 
 		this._register(this._editor.onDidChangeModel(() => {
+			this._bannerClosed = false;
 			this._updateHighlighter();
 		}));
 
@@ -83,6 +85,10 @@ export class UnicodeHighlighter extends Disposable implements IEditorContributio
 
 	private readonly _updateState = (state: IUnicodeHighlightsResult | null): void => {
 		if (state && state.hasMore) {
+			if (this._bannerClosed) {
+				return;
+			}
+
 			// This document contains many non-basic ASCII characters.
 			const max = Math.max(state.ambiguousCharacterCount, state.nonBasicAsciiCharacterCount, state.invisibleCharacterCount);
 
@@ -115,7 +121,10 @@ export class UnicodeHighlighter extends Disposable implements IEditorContributio
 						label: data.command.label,
 						href: `command:${data.command.id}`
 					}
-				]
+				],
+				onClose: () => {
+					this._bannerClosed = true;
+				},
 			});
 		} else {
 			this._bannerController.hide();
