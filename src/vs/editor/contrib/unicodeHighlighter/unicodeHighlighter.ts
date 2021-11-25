@@ -118,7 +118,7 @@ export class UnicodeHighlighter extends Disposable implements IEditorContributio
 				icon: warningIcon,
 				actions: [
 					{
-						label: data.command.label,
+						label: data.command.shortLabel,
 						href: `command:${data.command.id}`
 					}
 				],
@@ -518,11 +518,11 @@ const DECORATION = ModelDecorationOptions.register({
 
 export class DisableHighlightingOfAmbiguousCharactersAction extends EditorAction {
 	public static ID = 'editor.action.unicodeHighlight.disableHighlightingOfAmbiguousCharacters';
-
+	public readonly shortLabel = nls.localize('unicodeHighlight.disableHighlightingOfAmbiguousCharacters.shortLabel', '');
 	constructor() {
 		super({
 			id: DisableHighlightingOfAmbiguousCharactersAction.ID,
-			label: nls.localize('action.unicodeHighlight.disableHighlightingOfAmbiguousCharacters', 'Disable highlighting of ambiguous characters'),
+			label: nls.localize('action.unicodeHighlight.disableHighlightingOfAmbiguousCharacters', 'Disable Ambiguous Highlight'),
 			alias: 'Disable highlighting of ambiguous characters',
 			precondition: undefined
 		});
@@ -542,7 +542,7 @@ export class DisableHighlightingOfAmbiguousCharactersAction extends EditorAction
 
 export class DisableHighlightingOfInvisibleCharactersAction extends EditorAction {
 	public static ID = 'editor.action.unicodeHighlight.disableHighlightingOfInvisibleCharacters';
-
+	public readonly shortLabel = nls.localize('unicodeHighlight.disableHighlightingOfInvisibleCharacters.shortLabel', 'Disable Invisible Highlight');
 	constructor() {
 		super({
 			id: DisableHighlightingOfInvisibleCharactersAction.ID,
@@ -566,7 +566,7 @@ export class DisableHighlightingOfInvisibleCharactersAction extends EditorAction
 
 export class DisableHighlightingOfNonBasicAsciiCharactersAction extends EditorAction {
 	public static ID = 'editor.action.unicodeHighlight.disableHighlightingOfNonBasicAsciiCharacters';
-
+	public readonly shortLabel = nls.localize('unicodeHighlight.disableHighlightingOfNonBasicAsciiCharacters.shortLabel', 'Disable Non ASCII Highlight');
 	constructor() {
 		super({
 			id: DisableHighlightingOfNonBasicAsciiCharactersAction.ID,
