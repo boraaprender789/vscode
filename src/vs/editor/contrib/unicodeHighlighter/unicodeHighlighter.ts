@@ -95,17 +95,17 @@ export class UnicodeHighlighter extends Disposable implements IEditorContributio
 			let data;
 			if (state.nonBasicAsciiCharacterCount >= max) {
 				data = {
-					message: 'This document contains many non-basic ASCII unicode characters',
+					message: nls.localize('unicodeHighlighting.thisDocumentHasManyNonBasicAsciiUnicodeCharacters', 'This document contains many non-basic ASCII unicode characters'),
 					command: new DisableHighlightingOfNonBasicAsciiCharactersAction(),
 				};
 			} else if (state.ambiguousCharacterCount >= max) {
 				data = {
-					message: 'This document contains many ambiguous unicode characters',
+					message: nls.localize('unicodeHighlighting.thisDocumentHasManyAmbiguousUnicodeCharacters', 'This document contains many ambiguous unicode characters'),
 					command: new DisableHighlightingOfAmbiguousCharactersAction(),
 				};
 			} else if (state.invisibleCharacterCount >= max) {
 				data = {
-					message: 'This document contains many invisible unicode characters',
+					message: nls.localize('unicodeHighlighting.thisDocumentHasManyInvisibleUnicodeCharacters', 'This document contains many invisible unicode characters'),
 					command: new DisableHighlightingOfInvisibleCharactersAction(),
 				};
 			} else {
